@@ -17,6 +17,7 @@
             height: 50vh;
             flex-direction: column;
         }
+
         .container {
             max-width: 800px;
             margin: 20px auto;
@@ -25,30 +26,32 @@
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
+
         h1 {
             color: #ffffff;
+            text-align: center;
         }
-        ul {
-            list-style-type: none;
-            padding: 0;
-            color: #ffffff;
 
+        table {
+            width: 100%;
+            border-collapse: collapse;
         }
-        li {
-            margin-bottom: 10px;
+
+        th, td {
             padding: 10px;
-            background-color: #f9f9f9;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            color: #000000;
-
+            text-align: left;
+            border: 1px solid #ffffff;
+            color: #ffffff;
         }
-        li:hover {
+
+        tr:hover {
             background-color: #eaeaea;
         }
+
         .marca {
             font-weight: bold;
         }
+
         .transmision {
             color: #777;
         }
@@ -57,13 +60,26 @@
 <body>
     <div class="container">
         <h1>Lista de Carros</h1>
-        <ul>
-            {% for carro in carros %}
-                <li>
-                    <span class="marca">{{ carro.Marca }}</span> {{ carro.Modelo }} - <span class="transmision">{{ carro.Transmision }}</span>
-                </li>
-            {% endfor %}
-        </ul>
+        <table>
+            <thead>
+                <tr>
+                    <th>Carro ID</th>
+                    <th>Marca</th>
+                    <th>Modelo</th>
+                    <th>Transmision</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for carro in carros %}
+                <tr>
+                    <td>{{carro.CarroId}}</td>
+                    <td>{{carro.Marca}}</td>
+                    <td>{{carro.Modelo}}</td>
+                    <td>{{carro.Transmision}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 </body>
 </html>

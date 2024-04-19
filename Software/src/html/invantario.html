@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Inventario</title>
+    <title>Inventario</title>
     <style>
         body {
             background-color: #570303;
@@ -16,6 +16,7 @@
             align-items: center;
             height: 50vh;
             flex-direction: column;
+            color: #ffffff; 
         }
 
         .container {
@@ -29,46 +30,95 @@
 
         h1 {
             color: #ffffff;
+            text-align: center;
         }
 
-        ul {
-            list-style-type: none;
-            padding: 0;
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ffffff;
             color: #ffffff;
         }
 
-        li {
-            margin-bottom: 10px;
-            padding: 10px;
-            background-color: #f9f9f9;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            color: #000000;
-        }
-
-        li:hover {
+        tr:hover {
             background-color: #eaeaea;
         }
 
-        .existencia {
-            font-weight: bold;
+        .form-container {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
         }
-        
-        .cantidad-minima {
-            color: #777;
+
+        .form-container input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #ffffff;
         }
+
+        .form-container input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #3e3d3d;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .form-container input[type="submit"]:hover {
+            background-color: #3e3d3d;
+        }
+
+        h2 {
+            color: #ffffff;
+            text-align: left;
+        }
+
+
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Lista de Inventario</h1>
-        <ul>
-            {% for item in inventario %}
-                <li>
-                    Carro ID: {{ item.CarroID }} - Repuesto ID: {{ item.RepuestoID }} - Existencia: <span class="existencia">{{ item.Existencia }}</span> - Cantidad Mínima: <span class="cantidad-minima">{{ item.Cantidad_Minima }}</span>
-                </li>
-            {% endfor %}
-        </ul>
+        <h1>Inventario</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Carro ID</th>
+                    <th>Repuesto ID</th>
+                    <th>Existencia</th>
+                    <th>Cantidad Mínima</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in inventario %}
+                <tr>
+                    <td>{{ item.CarroID }}</td>
+                    <td>{{ item.RepuestoID }}</td>
+                    <td class="existencia">{{ item.Existencia }}</td> 
+                    <td class="cantidad-minima">{{ item.Cantidad_Minima }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class= "form-container"> 
+            <h2>Nuevo Repuesto</h2>
+            <form action="{% url 'agregar_repuesto' %}" method="post">
+                {% csrf_token %}
+                <input type="text" name="carro_id" placeholder="ID del carro">
+                <input type="text" name="repuesto_id" placeholder="ID del repuesto">
+                <input type="text" name="existencia" placeholder="Existencia">
+                <input type="text" name="cantidad_minima" placeholder="Cantidad Mínima">
+                <input type="submit" value="Agregar Repuesto">
+            </form>
+        </div>
     </div>
 </body>
 </html>

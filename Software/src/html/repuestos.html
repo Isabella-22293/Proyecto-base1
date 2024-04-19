@@ -19,7 +19,7 @@
         }
 
         .container {
-            max-width: 800px;
+            max-width: 1000px;
             margin: 20px auto;
             padding: 20px;
             background-color: #3e3d3d;
@@ -29,24 +29,22 @@
 
         h1 {
             color: #ffffff;
+            text-align: center;
         }
 
-        ul {
-            list-style-type: none;
-            padding: 0;
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid  #ffffff;
             color: #ffffff;
         }
 
-        li {
-            margin-bottom: 10px;
-            padding: 10px;
-            background-color: #f9f9f9;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            color: #000000;
-        }
-
-        li:hover {
+        tr:hover {
             background-color: #eaeaea;
         }
 
@@ -55,7 +53,7 @@
         }
 
         .categoria {
-            color: #777;
+            color: #ffffff;
         }
         
         .precio {
@@ -66,13 +64,28 @@
 <body>
     <div class="container">
         <h1>Lista de Repuestos</h1>
-        <ul>
-            {% for repuesto in repuestos %}
-                <li>
-                    <span class="nombre">{{ repuesto.Nombre }}</span> - <span class="categoria">{{ repuesto.Categoria }}</span> - Precio: <span class="precio">${{ repuesto.Precio_Unitario }}</span>
-                </li>
-            {% endfor %}
-        </ul>
+        <table>
+            <thead>
+                <tr>
+                    <th>RepuestoID</th>
+                    <th>CarroID</th>
+                    <th>Nombre</th>
+                    <th>Categoria</th>
+                    <th>Precio_Unitario</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for repuesto in repuestos %}
+                <tr>
+                    <td>{{repuesto.RepuestoID}}</td>
+                    <td>{{repuesto.CarroID}}</td>
+                    <td>{{repuesto.Nombre}}</td>
+                    <td>{{repuesto.Categoria}}</td>
+                    <td>{{repuesto.Precio_Unitario}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 </body>
 </html>
