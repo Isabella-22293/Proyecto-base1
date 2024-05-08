@@ -18,6 +18,7 @@ from .models import Proveedor
 from .models import Bitacora_Alertas
 from .models import Historial_Cambio
 from .models import Cambios_Salarios
+from .models import Repuestos
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
@@ -73,6 +74,24 @@ def lista_repuestos(request):
 def lista_inventario(request):
     inventario = Inventario.objects.all()
     return render(request, 'inventario.html', {'inventario': inventario})
+
+def agregar_repuesto(request):
+    if request.method == 'POST':
+        carro_id = request.POST['carro_id']
+        repuesto_id = request.POST['repuesto_id']
+        existencia = request.POST['existencia']
+        cantidad_minima = request.POST['cantidad_minima']
+        
+        repuesto = Repuestos.objects.create(
+            CarroID=carro_id,
+            RepuestoID=repuesto_id,
+            Existencia=existencia,
+            Cantidad_Minima=cantidad_minima
+        )
+        
+        return redirect('inventario')
+    else:
+        return render(request, 'tu_app/agregar_repuesto.html')
 
 def lista_usuarios(request):
     usuarios = Usuario.objects.all()

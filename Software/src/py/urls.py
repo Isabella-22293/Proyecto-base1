@@ -46,6 +46,8 @@ urlpatterns = [
     path('comprador-menu/', views.comprador_menu_view, name='comprador_menu'),
     path('carro/', views.carro_view, name='carro'),
     path('repuesto/', views.repuesto_view, name='repuesto'),
+    path('agregar_repuesto/', views.agregar_repuesto, name='agregar_repuesto'),
+
 ]
 
 
