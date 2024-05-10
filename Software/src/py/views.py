@@ -22,6 +22,7 @@ from .models import Repuestos
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from .forms import CarroForm
 
 
 def login_view(request):
@@ -66,6 +67,17 @@ def lista_empleados(request):
 def lista_carros(request):
     carros = Carro.objects.all()
     return render(request, 'carros.html', {'carros': carros})
+
+def agregar_carro(request):
+    if request.method == 'POST':
+        form = CarroForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('lista_carros')
+    else:
+        form = CarroForm()
+    return render(request, 'agregar_carro.html', {'form': form})
+
 
 def lista_repuestos(request):
     repuestos = Repuestos.objects.all()

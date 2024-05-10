@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inventario</title>
+    <title>Lista de Inventario</title>
     <style>
         body {
             background-color: #570303;
@@ -14,13 +14,12 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 50vh;
-            flex-direction: column;
+            height: 100vh; /* Cambiado a 100vh para ocupar toda la pantalla */
             color: #ffffff; 
         }
 
         .container {
-            max-width: 800px;
+            max-width: 90%; /* Cambiado a un ancho del 90% para que sea más adaptable */
             margin: 20px auto;
             padding: 20px;
             background-color: #3e3d3d;
@@ -31,63 +30,83 @@
         h1 {
             color: #ffffff;
             text-align: center;
+            margin-bottom: 20px; /* Añadido margen inferior para separar del formulario */
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
+            color: #ffffff;
         }
 
         th, td {
             padding: 10px;
-            text-align: left;
             border-bottom: 1px solid #ffffff;
-            color: #ffffff;
         }
 
         tr:hover {
             background-color: #eaeaea;
         }
 
-        .form-container {
-            margin-top: 20px;
-            display: flex;
-            flex-direction: column;
+        .existencia {
+            font-weight: bold;
         }
 
-        .form-container input[type="text"] {
-            width: 100%;
+        .cantidad-minima {
+            color: #777;
+        }
+
+        
+        form {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        form label {
+            display: block;
+            margin-bottom: 5px;
+            text-align: left;
+        }
+
+        form input[type="text"], form input[type="number"] {
+            width: calc(100% - 20px); 
             padding: 8px;
             margin-bottom: 10px;
             border-radius: 5px;
             border: 1px solid #ffffff;
         }
 
-        .form-container input[type="submit"] {
-            width: 100%;
+        form input[type="submit"] {
+            width: calc(100% - 20px); 
             padding: 10px;
-            background-color: #3e3d3d;
+            background-color: #007bff;
             color: #ffffff;
             border: none;
             border-radius: 5px;
             cursor: pointer;
         }
 
-        .form-container input[type="submit"]:hover {
-            background-color: #3e3d3d;
+        form input[type="submit"]:hover {
+            background-color: #0056b3;
         }
-
-        h2 {
-            color: #ffffff;
-            text-align: left;
-        }
-
-
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Inventario</h1>
+        <h1>Lista de Inventario</h1>
+        <form action="{% url 'agregar_elemento' %}" method="post">
+            {% csrf_token %}
+            <label for="carro_id">Carro ID:</label>
+            <input type="text" id="carro_id" name="carro_id" required><br>
+            <label for="repuesto_id">Repuesto ID:</label>
+            <input type="text" id="repuesto_id" name="repuesto_id" required><br>
+            <label for="existencia">Existencia:</label>
+            <input type="number" id="existencia" name="existencia" required><br>
+            <label for="cantidad_minima">Cantidad Mínima:</label>
+            <input type="number" id="cantidad_minima" name="cantidad_minima" required><br>
+            <input type="submit" value="Agregar Elemento">
+        </form>
+
         <table>
             <thead>
                 <tr>
@@ -102,23 +121,12 @@
                 <tr>
                     <td>{{ item.CarroID }}</td>
                     <td>{{ item.RepuestoID }}</td>
-                    <td class="existencia">{{ item.Existencia }}</td> 
+                    <td class="existencia">{{ item.Existencia }}</td>
                     <td class="cantidad-minima">{{ item.Cantidad_Minima }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
-        <div class= "form-container"> 
-            <h2>Nuevo Repuesto</h2>
-            <form action="{% url 'agregar_repuesto' %}" method="post">
-                {% csrf_token %}
-                <input type="text" name="carro_id" placeholder="ID del carro">
-                <input type="text" name="repuesto_id" placeholder="ID del repuesto">
-                <input type="text" name="existencia" placeholder="Existencia">
-                <input type="text" name="cantidad_minima" placeholder="Cantidad Mínima">
-                <input type="submit" value="Agregar Repuesto">
-            </form>
-        </div>
     </div>
 </body>
 </html>

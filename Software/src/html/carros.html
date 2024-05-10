@@ -108,7 +108,6 @@
                     <td>{{carro.CarroId}}</td>
                     <td>{{carro.Marca}}</td>
                     <td>{{carro.Modelo}}</td>
-                    <td>{{carro.Año}}</td>
                     <td>{{carro.Transmision}}</td>
                 </tr>
                 {% endfor %}
@@ -122,7 +121,6 @@
 
             var marca = document.getElementById("marca").value;
             var modelo = document.getElementById("modelo").value;
-            var año = document.getElementById("año").value; 
             var transmision = document.getElementById("transmision").value;
 
             var tabla = document.getElementById("tabla-carros");
@@ -131,18 +129,15 @@
             var cell1 = newRow.insertCell(0);
             var cell2 = newRow.insertCell(1);
             var cell3 = newRow.insertCell(2);
-            var cell4 = newRow.insertCell(3);
-            var cell5 = newRow.insertCell(4);
+            var cell4 = newRow.insertCell(4);
 
             cell1.innerHTML = "";
             cell2.innerHTML = marca;
             cell3.innerHTML = modelo;
-            cell4.innerHTML = año;
-            cell5.innerHTML = transmision;
+            cell4.innerHTML = transmision;
 
             document.getElementById("formulario-carro").reset();
         });
     </script>
 </body>
 </html>
-
