@@ -14,12 +14,12 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 50vh;
+            height: 100vh; 
             flex-direction: column;
         }
 
         .container {
-            max-width: 800px;
+            max-width: 90%; 
             margin: 20px auto;
             padding: 20px;
             background-color: #3e3d3d;
@@ -31,22 +31,20 @@
             color: #ffffff;
         }
 
-        ul {
-            list-style-type: none;
-            padding: 0;
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ffffff;
             color: #ffffff;
         }
 
-        li {
-            margin-bottom: 10px;
-            padding: 10px;
-            background-color: #f9f9f9;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            color: #000000;
-        }
-
-        li:hover {
+        tr:hover {
             background-color: #eaeaea;
         }
 
@@ -65,18 +63,104 @@
         .sub-total {
             color: #28a745;
         }
+
+        form {
+            margin-bottom: 20px; 
+            text-align: center;
+        }
+
+        form label {
+            display: block;
+            margin-bottom: 5px;
+            color: #ffffff;
+            text-align: left;
+        }
+
+        form input {
+            width: calc(100% - 20px); 
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        form button {
+            width: calc(100% - 20px); 
+            padding: 10px;
+            background-color: #007bff;
+            color: #ffffff;
+            border: none;
+            cursor: pointer;
+        }
+
+        @media screen and (min-width: 768px) {
+            .container {
+                max-width: 800px;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Detalles de Venta</h1>
-        <ul>
-            {% for detalle in detalles_venta %}
-                <li>
-                    Número de Orden: <span class="numero-orden">{{ detalle.Numero_Orden }}</span> - Cantidad: <span class="cantidad">{{ detalle.Cantidad }}</span> - Rebaja: <span class="rebaja">{{ detalle.Rebaja }}</span> - Subtotal: <span class="sub-total">{{ detalle.SubTotal }}</span>
-                </li>
-            {% endfor %}
-        </ul>
+
+        <form id="formulario-venta">
+            <label for="numero-orden">Número de Orden:</label>
+            <input type="text" id="numero-orden" name="numero-orden" required><br>
+            <label for="cantidad">Cantidad:</label>
+            <input type="number" id="cantidad" name="cantidad" required><br>
+            <label for="rebaja">Rebaja:</label>
+            <input type="number" id="rebaja" name="rebaja" required><br>
+            <label for="subtotal">Subtotal:</label>
+            <input type="number" id="subtotal" name="subtotal" required><br>
+            <button type="submit">Agregar Venta</button>
+        </form>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Número de Orden</th>
+                    <th>Cantidad</th>
+                    <th>Rebaja</th>
+                    <th>Subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for detalle in detalles_venta %}
+                <tr>
+                    <td class="numero-orden">{{ detalle.Numero_Orden }}</td>
+                    <td class="cantidad">{{ detalle.Cantidad }}</td>
+                    <td class="rebaja">{{ detalle.Rebaja }}</td>
+                    <td class="sub-total">{{ detalle.SubTotal }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
+
+    <script>
+        document.getElementById("formulario-venta").addEventListener("submit", function(event) {
+            event.preventDefault(); 
+
+            var numeroOrden = document.getElementById("numero-orden").value;
+            var cantidad = document.getElementById("cantidad").value;
+            var rebaja = document.getElementById("rebaja").value;
+            var subtotal = document.getElementById("subtotal").value;
+
+            var tabla = document.querySelector("table tbody");
+            var newRow = tabla.insertRow();
+
+            var cell1 = newRow.insertCell(0);
+            var cell2 = newRow.insertCell(1);
+            var cell3 = newRow.insertCell(2);
+            var cell4 = newRow.insertCell(3);
+
+            cell1.textContent = numeroOrden;
+            cell2.textContent = cantidad;
+            cell3.textContent = rebaja;
+            cell4.textContent = subtotal;
+
+            document.getElementById("formulario-venta").reset();
+        });
+    </script>
 </body>
 </html>
