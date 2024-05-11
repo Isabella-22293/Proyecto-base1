@@ -31,8 +31,9 @@
             max-width: 300px;
             margin: 10px;
             padding: 20px;
-            background-color: #3e3d3d;
-            border-radius: 8px;
+            background-image: url('../Imagenes/fondo2.jpg');
+            background-size: cover; 
+            background-position: center;            border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             color: #ffffff;
             line-height: 1.4;
@@ -50,8 +51,8 @@
 <body>
     <h1>Comprador</h1>
     <div class="button-container">
-        <a href="{% url 'carro' %}"><button>Carro</button></a>
-        <a href="{% url 'repuesto' %}"><button>Repuesto</button></a>
+        <a href="carros.html"><button>Carro</button></a>
+        <a href="repuestos.html"><button>Repuesto</button></a>
     </div>
 </body>
 </html>

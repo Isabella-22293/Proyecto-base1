@@ -1,26 +1,10 @@
-"""
-URL configuration for Software project.
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/4.2/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
-from django.contrib import admin
 from django.urls import path
+from django.contrib.auth import views as auth_views
 from . import views
-
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('login/', views.login_view, name='login'),
+    path('', views.filter_carros, name='home'),
+    path('login/', views.custom_login, name='login'),
+    path('pruebarepuestos',views.filter_carros, name='pruebarepuestos'),
     path('empleados/', views.lista_empleados, name='lista_empleados'),
     path('carros/', views.lista_carros, name='lista_carros'),
     path('repuestos/', views.lista_repuestos, name='lista_repuestos'),
@@ -40,30 +24,6 @@ urlpatterns = [
     path('bitacora_alertas/', views.bitacora_alertas, name='bitacora_alertas'),
     path('historial_cambio/', views.historial_cambio, name='historial_cambio'),
     path('cambios_salarios/', views.cambios_salarios, name='cambios_salarios'),
-     path('vendedor-menu/', views.vendedor_menu_view, name='vendedor_menu'),
-    path('menu/', views.menu_view, name='menu'),
     path('vendedor-menu/', views.vendedor_menu_view, name='vendedor_menu'),
-    path('inventario/', views.inventario_view, name='inventario'),
-    path('venta/', views.venta_view, name='venta'),
-    path('cotizacion/', views.cotizacion_view, name='cotizacion'),
-    path('admin/', views.administrador, name='admin'),
-    path('contador/', views.contador, name='contador'),
-    path('vendedor/', views.vendedor, name='vendedor'),
-    path('comprador/', views.comprador, name='comprador'),
-    path('admin-menu/', views.admin_menu_view, name='admin_menu'),
-    path('pagos/', views.pagos_view, name='pagos'),
-    path('cierres-mensuales/', views.cierres_mensuales_view, name='cierres_mensuales'),
-    path('empleados/', views.empleados_view, name='empleados'),
-    path('control-usuario/', views.control_usuario_view, name='control_usuario'),
-    path('contador-menu/', views.contador_menu_view, name='contador_menu'),
-    path('gastos/', views.gastos_view, name='gastos'),
-    path('pagos/', views.pagos_view, name='pagos'),
-    path('comisiones/', views.comisiones_view, name='comisiones'),
-    path('ventas/', views.ventas_view, name='ventas'),
-    path('cierre-mensual/', views.cierre_mensual_view, name='cierre_mensual'),
-    path('comprador-menu/', views.comprador_menu_view, name='comprador_menu'),
-    path('carro/', views.carro_view, name='carro'),
-    path('repuesto/', views.repuesto_view, name='repuesto'),
-    path('agregar_repuesto/', views.agregar_repuesto, name='agregar_repuesto'),
-
-]
+    path('menu/', views.menu_view, name='menu'),
+    ]
